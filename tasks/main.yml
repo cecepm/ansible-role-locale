@@ -1,0 +1,13 @@
+---
+- name: Ensure locales is installed
+  apt: name=locales state=installed
+
+- name: Set system wide locale
+  template: >
+    src=locale.j2
+    dest=/etc/default/locale
+    owner=root group=root mode=644
+
+- name: Ensure the supported locale is generated
+  locale_gen: name={{ item.locale }} state={{ item.state }}
+  with_items: locale_locales

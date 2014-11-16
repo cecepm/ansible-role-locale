@@ -1,0 +1,14 @@
+---
+locale_language_packs:
+- language-pack-en
+- language-pack-en-base
+
+locale_locales:
+- { locale: en_US.UTF-8, state: present }
+
+# See:
+# - https://help.ubuntu.com/community/Locale
+# - https://www.gnu.org/software/gettext/manual/html_node/The-LANGUAGE-variable.html#The-LANGUAGE-variable
+locale_settings:
+  LANG: "en_US.UTF-8"
+  LANGUAGE: "en_US:"
