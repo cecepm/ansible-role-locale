@@ -5,6 +5,11 @@
 - name: Ensure language packages are installed
   apt: pkg={{ item }} state=installed
   with_items: locale_language_packs
+  register: locale_languages
+
+- name: Ensure dpkg is reconfigured
+  command: dpkg-reconfigure locales
+  when: locale_languages.changed
 
 - name: Set system wide locale
   template: >
@@ -12,6 +17,28 @@
     dest=/etc/default/locale
     owner=root group=root mode=644
 
-- name: Ensure the supported locale is generated
+- name: Detect locale gen file
+  stat:
+    path: /etc/local.gen
+  register: locales_gen
+
+- name: Create locale gen file
+  file:
+    path: /etc/local.gen
+    state: touch
+  when: not locales_gen.stat.exists
+
+- name: Detect locale supported file
+  stat:
+    path: /var/lib/locales/supported.d/local
+  register: locales_supported
+
+- name: Create locale supported file
+  file:
+    path: /var/lib/locales/supported.d/local
+    state: touch
+  when: not locales_supported.stat.exists
+
+- name: Ensure locales is generated
   locale_gen: name={{ item.locale }} state={{ item.state }}
   with_items: locale_locales
