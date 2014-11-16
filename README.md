@@ -1,4 +1,4 @@
-# Ansible Role: NTP
+# Ansible Role: locale
 
 [![Build Status](https://travis-ci.org/cecepm/ansible-role-locale.svg?branch=master)](https://travis-ci.org/cecepm/ansible-role-locale)
 
