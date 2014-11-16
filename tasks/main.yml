@@ -2,6 +2,10 @@
 - name: Ensure locales is installed
   apt: name=locales state=installed
 
+- name: Ensure language packages are installed
+  apt: pkg={{ item }} state=installed
+  with_items: locale_language_packs
+
 - name: Set system wide locale
   template: >
     src=locale.j2
