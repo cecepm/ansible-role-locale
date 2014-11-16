@@ -37,21 +37,21 @@ Using default value
 
 Example, you want your system using Bahasa Indonesia
 
-  - hosts: server
-    vars:
-      locale_language_packs:
-      - language-pack-en
-      - language-pack-en-base
-      - language-pack-id
-      - language-pack-id-base
-      locale_locales:
-      - { locale: en_US.UTF-8, state: present }
-      - { locale: id_ID.UTF-8, state: present }
-      locale_settings:
-        LANG: "id_ID.UTF-8"
-        LANGUAGE: "id_ID:"
-    roles:
-    - cecepm.locale
+    - hosts: server
+      vars:
+        locale_language_packs:
+        - language-pack-en
+        - language-pack-en-base
+        - language-pack-id
+        - language-pack-id-base
+        locale_locales:
+        - { locale: en_US.UTF-8, state: present }
+        - { locale: id_ID.UTF-8, state: present }
+        locale_settings:
+          LANG: "id_ID.UTF-8"
+          LANGUAGE: "id_ID:"
+      roles:
+      - cecepm.locale
 
 
 ## License
