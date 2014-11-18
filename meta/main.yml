@@ -3,7 +3,7 @@ dependencies: []
 
 galaxy_info:
   author: cecepm
-  description: Configure system-wide local
+  description: Configure system-wide locale
   license: "license (BSD, MIT)"
   min_ansible_version: 1.6
   platforms:
