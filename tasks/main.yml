@@ -1,36 +1,44 @@
 ---
 - name: Ensure locales is installed
   apt: name=locales state=installed
+  sudo: yes
 
 - name: Ensure language packages are installed
   apt: pkg={{ item }} state=installed
   with_items: locale_language_packs
+  sudo: yes
   register: locale_languages
 
 - name: Ensure dpkg is reconfigured
   command: dpkg-reconfigure locales
   when: locale_languages.changed
+  sudo: yes
 
 - name: Set system wide locale
   template: >
     src=locale.j2
     dest=/etc/default/locale
     owner=root group=root mode=644
+  sudo: yes
 
 - name: Detect locale gen file
   stat:
     path: /etc/local.gen
+  sudo: yes
   register: locales_gen
+
 
 - name: Create locale gen file
   file:
     path: /etc/local.gen
     state: touch
   when: not locales_gen.stat.exists
+  sudo: yes
 
 - name: Detect locale supported file
   stat:
     path: /var/lib/locales/supported.d/local
+  sudo: yes
   register: locales_supported
 
 - name: Create locale supported file
@@ -38,7 +46,9 @@
     path: /var/lib/locales/supported.d/local
     state: touch
   when: not locales_supported.stat.exists
+  sudo: yes
 
 - name: Ensure locales is generated
   locale_gen: name={{ item.locale }} state={{ item.state }}
   with_items: locale_locales
+  sudo: yes
